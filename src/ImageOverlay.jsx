@@ -42,11 +42,10 @@ const ImageOverlay = () => {
               />
             </Form.Group>
             <Form.Group>
-              <Form.File
-                id="image"
-                label="Upload Image"
-                onChange={handleImageUpload}
-              />
+            <Form.Group controlId="image">
+  <Form.Label>Upload Image</Form.Label>
+  <Form.Control type="file" onChange={handleImageUpload} accept="image/*" />
+</Form.Group>
             </Form.Group>
             <Button onClick={handleDownload}>Download</Button>
           </Form>
