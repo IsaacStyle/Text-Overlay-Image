@@ -20,12 +20,34 @@ const ImageOverlay = () => {
 
   const handleDownload = () => {
     if (image) {
-      const link = document.createElement('a');
-      link.href = image;
-      link.download = 'image_with_text.png';
-      link.click();
-    }
-  };
+      const img = new Image();
+  
+      img.src = image;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+  
+        // Set canvas dimensions to match the image
+        canvas.width = img.width;
+        canvas.height = img.height;
+  
+        // Draw the image on the canvas
+        context.drawImage(img, 0, 0);
+  
+        // Add text overlay
+        context.font = '30px Arial';
+        context.fillStyle = 'white';
+        context.fillText(text, 20, 40); // Adjust text position as needed
+  
+        // Convert canvas to data URL and create a download link
+        const downloadUrl = canvas.toDataURL('image/jpeg');
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        link.download = 'image_with_text.jpg';
+        link.click();
+    };
+  }
+};
 
   return (
     <Container>
